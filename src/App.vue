@@ -1,6 +1,6 @@
 <template>
 
-  <v-main>
+  <v-main data-app>
     <NavbarVue />
     <div class="container-fluid ps-5 pe-5">
       <div>
@@ -13,21 +13,24 @@
             <h6 class="search">Buscar:</h6>
             <div class="input-group">
               <span class="input-group-text" id="basic-addon1"><i class="uil uil-search"></i></span>
-              <input v-model="search" type="text" class="form-control" placeholder="Escribe lo que desees buscar" aria-label="Username"
-                aria-describedby="basic-addon1">
+              <input v-model="search" type="text" class="form-control" placeholder="Escribe lo que desees buscar"
+                aria-label="Username" aria-describedby="basic-addon1">
             </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="align-end">
-            <button class="btn btn-primary">Nuevo domicilio</button>
+            <button v-on:click="formVisibility = true" class="btn btn-primary"><i class="uil uil-plus"></i>Nuevo
+              domicilio</button>
           </div>
         </div>
       </div>
     </div>
 
-    <v-data-table :headers="headers" :items="info" :search="search" :items-per-page="5" class="elevation-1"></v-data-table>
+    <v-data-table :headers="headers" :items="info" :search="search" :items-per-page="5" class="elevation-1">
+    </v-data-table>
 
+    <CreateDomicilie :visible="formVisibility" @close="onClose" @onSave="onSave" />
   </v-main>
 
 </template>
@@ -112,22 +115,16 @@ hr {
 <script>
 
 import NavbarVue from './components/NavbarVue';
+import CreateDomicilie from './components/CreateDomicilie';
 
 import axios from "axios";
 
-
 export default {
   name: 'App',
-
-
   components: {
     NavbarVue,
-
-
-
+    CreateDomicilie,
   },
-
-
   mounted() {
     axios
       .get('https://627d8c954268bf47ad4c5bb8.mockapi.io/api/kation/Domicilie')
@@ -149,6 +146,16 @@ export default {
       { text: 'ESTADO', value: 'state' },
     ],
     search: "",
+    formVisibility: false,
   }),
+  methods: {
+    onClose(value) {
+      console.log(value);
+      this.formVisibility = value
+    },
+    onSave(value) {
+      this.info = [...this.info, value]
+    }
+  }
 };
 </script>
