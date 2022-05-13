@@ -1,45 +1,38 @@
 <template>
 
-    <v-main>
-      <!-- <HelloWorld/> -->
-     <NavbarVue /> 
-     <div class="container-fluid ps-5 pe-5">
-    <div>
-      <h5>Consulta cliente domicilio</h5>
-    </div>
-
-    <hr width="100">
-
-    <div class="row mb-3">
-      <div class="col-md-6">
-        <div class="d-flex flex-row">
-          <h6 class="search">Buscar:</h6>
-          <div class="input-group">
-            <span class="input-group-text" id="basic-addon1"><i
-                class="uil uil-search"></i></span>
-            <input type="text" class="form-control" placeholder="Escribe lo que desees buscar" aria-label="Username"
-              aria-describedby="basic-addon1">
+  <v-main>
+    <NavbarVue />
+    <div class="container-fluid ps-5 pe-5">
+      <div>
+        <h5>Consulta cliente domicilio</h5>
+      </div>
+      <hr width="100">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <div class="d-flex flex-row">
+            <h6 class="search">Buscar:</h6>
+            <div class="input-group">
+              <span class="input-group-text" id="basic-addon1"><i class="uil uil-search"></i></span>
+              <input type="text" class="form-control" placeholder="Escribe lo que desees buscar" aria-label="Username"
+                aria-describedby="basic-addon1">
+            </div>
           </div>
-
         </div>
-      </div>
-      <div class="col-md-6">
-        <div class="align-end">
-          <button class="btn btn-primary">Nuevo domicilio</button>
-
+        <div class="col-md-6">
+          <div class="align-end">
+            <button class="btn btn-primary">Nuevo domicilio</button>
+          </div>
         </div>
       </div>
     </div>
-    </div>
-     <TableView/>
 
+    <v-data-table :headers="headers" :items="info" :items-per-page="5" class="elevation-1"></v-data-table>
 
-    </v-main>
-  
+  </v-main>
+
 </template>
 
 <style>
-
 #app {
   /* width: 100vw; */
   height: 100vh;
@@ -114,26 +107,47 @@ hr {
   justify-content: flex-end;
 
 }
-
 </style>
 
 <script>
-// import HelloWorld from './components/HelloWorld';
+
 import NavbarVue from './components/NavbarVue';
-import TableView from './components/TableView';
+
+import axios from "axios";
 
 
 export default {
   name: 'App',
-  
+
 
   components: {
     NavbarVue,
-    TableView,
-},
 
+
+
+  },
+
+
+  mounted() {
+    axios
+      .get('https://627d8c954268bf47ad4c5bb8.mockapi.io/api/kation/Domicilie')
+      .then(response => (this.info = response.data))
+  },
   data: () => ({
-    //
+    info: [],
+    headers: [
+      {
+        text: 'PERSONA NO',
+        align: 'start',
+        value: 'id',
+      },
+      { text: 'TIPO DOMICILIO', value: 'domicilieType' },
+      { text: 'CALLE', value: 'street' },
+      { text: 'NUMERO', value: 'number' },
+      { text: 'SECTOR', value: 'sector' },
+      { text: 'PROVINCIA', value: 'province' },
+      { text: 'ESTADO', value: 'state' },
+    ],
   }),
 };
 </script>

@@ -1,4 +1,4 @@
-# karion-table
+# kation-table
 
 ## Project setup
 ```
