@@ -13,7 +13,7 @@
             <h6 class="search">Buscar:</h6>
             <div class="input-group">
               <span class="input-group-text" id="basic-addon1"><i class="uil uil-search"></i></span>
-              <input type="text" class="form-control" placeholder="Escribe lo que desees buscar" aria-label="Username"
+              <input v-model="search" type="text" class="form-control" placeholder="Escribe lo que desees buscar" aria-label="Username"
                 aria-describedby="basic-addon1">
             </div>
           </div>
@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <v-data-table :headers="headers" :items="info" :items-per-page="5" class="elevation-1"></v-data-table>
+    <v-data-table :headers="headers" :items="info" :search="search" :items-per-page="5" class="elevation-1"></v-data-table>
 
   </v-main>
 
@@ -148,6 +148,7 @@ export default {
       { text: 'PROVINCIA', value: 'province' },
       { text: 'ESTADO', value: 'state' },
     ],
+    search: "",
   }),
 };
 </script>
