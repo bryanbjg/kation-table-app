@@ -91,6 +91,7 @@ export default {
                 sector: "",
                 province: "",
                 state: "",
+                
             };
             this.show = false;
         },

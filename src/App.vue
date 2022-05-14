@@ -116,8 +116,9 @@ hr {
 
 import NavbarVue from './components/NavbarVue';
 import CreateDomicilie from './components/CreateDomicilie';
+import domicilieService from '@/services/mockURL';
 
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   name: 'App',
@@ -125,11 +126,11 @@ export default {
     NavbarVue,
     CreateDomicilie,
   },
-  mounted() {
-    axios
-      .get('https://627d8c954268bf47ad4c5bb8.mockapi.io/api/kation/Domicilie')
-      .then(response => (this.info = response.data))
-  },
+  // mounted() {
+  //   axios
+  //     .get('https://627d8c954268bf47ad4c5bb8.mockapi.io/api/kation/Domicilie')
+  //     .then(response => (this.info = response.data))
+  // },
   data: () => ({
     info: [],
     headers: [
@@ -148,6 +149,17 @@ export default {
     search: "",
     formVisibility: false,
   }),
+
+  created(){
+
+    domicilieService.getEvents()
+    .then((response) => {
+      this.info = response.data;
+    })
+    .catch((error) =>{
+      console.log('Hay un error: '  + error);
+    })
+  },
   methods: {
     onClose(value) {
       this.formVisibility = value
@@ -155,6 +167,9 @@ export default {
     onSave(value) {
       this.info = [...this.info, value]
     }
-  }
-};
+  },
+
+}
+
+
 </script>
