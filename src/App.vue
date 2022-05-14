@@ -150,7 +150,6 @@ export default {
   }),
   methods: {
     onClose(value) {
-      console.log(value);
       this.formVisibility = value
     },
     onSave(value) {

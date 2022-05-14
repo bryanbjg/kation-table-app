@@ -44,7 +44,7 @@
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="show = false">
+                    <v-btn color="blue darken-1" text @click="onClose">
                         Cerrar
                     </v-btn>
                     <v-btn color="blue darken-1" text @click="onSave">
@@ -71,10 +71,8 @@ export default {
             state: "",
         },
         domicilieTypeItems: ['Oficina', 'Sucursal', 'Trabjo', 'Verano'],
-
         stateTypeItems: ['Activo', 'Inactivo'],
     }),
-
     methods: {
         onSelectDomicilieType(value) {
             this.model.domicilieType = value;
@@ -85,16 +83,29 @@ export default {
         },
 
         onSave() {
-
-            console.log(this.model);
             this.$emit('onSave', { ...this.model });
-
-
+            this.model = {
+                domicilieType: "",
+                street: "",
+                number: "",
+                sector: "",
+                province: "",
+                state: "",
+            };
+            this.show = false;
+        },
+        onClose(){
+            this.model = {
+                domicilieType: "",
+                street: "",
+                number: "",
+                sector: "",
+                province: "",
+                state: "",
+            };
+            this.show = false;
         }
-
-
     },
-
     computed: {
         show: {
             get() {
