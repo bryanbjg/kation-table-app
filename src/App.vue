@@ -27,17 +27,24 @@
       </div>
     </div>
 
-    <v-data-table :headers="headers" :items="info" :search="search" :items-per-page="5" class="elevation-1">
+<div class="blue darken-4">
+    <v-data-table  :headers="headers" :items="info" :search="search" :items-per-page="5" class="elevation-1">
     </v-data-table>
-
+</div>
     <CreateDomicilie :visible="formVisibility" @close="onClose" @onSave="onSave" />
   </v-main>
 
 </template>
 
 <style>
+
+.theme--light.v-data-table > .v-data-table__wrapper > table > thead > tr:last-child > th {
+    color: white;
+    background-color: #0D47A1;
+}
+
+
 #app {
-  /* width: 100vw; */
   height: 100vh;
   font-weight: normal;
 }
@@ -49,12 +56,18 @@ body {
 
 /* Buttons styling */
 
+.btn-primary {
+    color: #fff;
+    background-color: #0D47A1;
+    border-color: #0D47A1;
+}
+
 .btn-edit {
   border-radius: 5px;
   border: none;
   margin-left: 77%;
   background-color: white;
-  color: blue;
+  color: #0D47A1;
 
 }
 
@@ -130,6 +143,10 @@ export default {
   data: () => ({
     info: [],
     headers: [
+      {
+        text: '...',
+        align: 'start'
+      },
       {
         text: 'PERSONA NO',
         align: 'start',
